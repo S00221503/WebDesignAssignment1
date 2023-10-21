@@ -1,0 +1,16 @@
+const mongoose = require('mongoose');
+const WeatherData = mongoose.model('WeatherData', yourSchema);
+
+const weatherRecord = new WeatherData({
+  location: 'New York',
+  temperature: 25,
+  humidity: 60,
+});
+
+weatherRecord.save((err) => {
+  if (err) {
+    console.error('Error saving weather data:', err);
+  } else {
+    console.log('Weather data saved successfully.');
+  }
+});

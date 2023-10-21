@@ -1,12 +1,18 @@
-const express = require('express')
+const express = require('express');
+const { WeatherData } = require('./Database'); // Import the WeatherData model
+const app = express();
+const port = process.env.PORT || 3001;
 
-require('dotenv').config();
-require('./Database');
-// note this required a .env file which is not in github
+app.get('/weather', (req, res) => {
+  WeatherData.find({}, (err, data) => {
+    if (err) {
+      res.status(500).json({ error: err.message });
+      return;
+    }
+    res.json(data);
+  });
+});
 
-const app = express()
-const port = process.env.PORT || 3001
-
-app.listen(port, () => console.log(`Example app listening on port ${port}!`))
-
-const {Test} = require('./models/test')
+app.listen(port, () => {
+  console.log(`Example app listening on port ${port}!`);
+});
